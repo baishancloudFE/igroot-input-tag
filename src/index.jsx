@@ -1,2 +1,2 @@
-import ReactTags from './ReactTags'
-export default ReactTags
+import InputTag from './InputTag'
+export default InputTag

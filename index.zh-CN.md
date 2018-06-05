@@ -14,7 +14,7 @@ router 配置渲染组件
 标签可以动态添加并且可以调整顺序的情况
 
 ## 安装方法
-````jsx
+```jsx
 sl add -c igroot-input-tag
 ```
 
