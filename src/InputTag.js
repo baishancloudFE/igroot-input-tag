@@ -23,6 +23,8 @@ class InputTag extends Component {
     delimiters: PropTypes.arrayOf(PropTypes.number),
     autofocus: PropTypes.bool,
     inline: PropTypes.bool,
+    repeatable: PropTypes.bool,
+    onlyReadSuggestions: PropTypes.bool,
     handleDelete: PropTypes.func,
     handleAddition: PropTypes.func,
     handleDrag: PropTypes.func,
@@ -56,6 +58,8 @@ class InputTag extends Component {
     delimiters: [KEYS.ENTER, KEYS.TAB],
     autofocus: true,
     inline: true,
+    repeatable: false,
+    onlyReadSuggestions: false,
     handleDelete: noop,
     handleAddition: noop,
     allowDeleteFromEmptyInput: true,
@@ -274,24 +278,29 @@ class InputTag extends Component {
     if (!tag.id && !tag.text) {
       return
     }
-    const { tags, repeatable } = this.props
+    const { tags, repeatable, autocomplete, suggestions, onlyReadSuggestions } = this.props
     const existingKeys = tags.map((tag) => tag.id.toLowerCase())
     // Return if tag has been already added
     if (existingKeys.indexOf(tag.id.toLowerCase()) >= 0 && !repeatable) {
       return
     }
-    if (this.props.autocomplete) {
+    if (autocomplete) {
       const possibleMatches = this.filteredSuggestions(
         tag,
-        this.props.suggestions
+        suggestions
       )
 
       if (
-        (this.props.autocomplete === 1 && possibleMatches.length === 1) ||
-        (this.props.autocomplete === true && possibleMatches.length)
+        (autocomplete === 1 && possibleMatches.length === 1) ||
+        (autocomplete === true && possibleMatches.length)
       ) {
         tag = possibleMatches[0]
       }
+    }
+    
+    if (onlyReadSuggestions) {
+      const matchTags = suggestions.filter(item => item.text === tag.text)
+      if (!matchTags.length) return 
     }
 
     // call method to add
@@ -416,7 +425,7 @@ class InputTag extends Component {
   }
 }
 
-module.exports = {
+export default {
   WithContext: DragDropContext(HTML5Backend)(InputTag),
   WithOutContext: InputTag,
   KEYS: KEYS,

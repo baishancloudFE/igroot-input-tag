@@ -1,2 +1,2 @@
-import InputTag from './InputTag'
+import InputTag  from './InputTag'
 export default InputTag

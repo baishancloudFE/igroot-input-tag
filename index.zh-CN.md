@@ -6,15 +6,14 @@ subtitle: 动态标签组件
 cols: 1
 ---
 
-router 配置渲染组件
-
-组件直接使用 [React-input-tag](https://github.com/prakhar1989/react-tags) 来进行二次扩展，只扩展了，标签是否重复的功能
+组件直接使用 [React-input-tag](https://github.com/prakhar1989/react-tags) 来进行二次扩展，只扩展了标签是否重复(repeatable)、是否只能输入推送的（onlySuggestions）
 
 ## 何时使用
 标签可以动态添加并且可以调整顺序的情况
 
 ## 安装方法
-```jsx
+
+```javascript
 sl add -c igroot-input-tag
 ```
 
